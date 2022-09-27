@@ -11,7 +11,9 @@ object Main {
     @JvmStatic
     fun main(args: Array<String>) {
         """
-            /* A very simple example of an interpreter */
+            /* 
+               A very simple example of an interpreter
+             */
             repeat 10 (
                 print "Hello world!"
                 repeat 2 print "--Nesting for fun"
