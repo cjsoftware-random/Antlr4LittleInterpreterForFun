@@ -15,10 +15,14 @@ import io.github.cjsoftware_random.parser.LittleParserBaseVisitor
 class LittleLanguageVisitor : LittleParserBaseVisitor<Unit>() {
 
     override fun visitLittleLanguage(ctx: LittleParser.LittleLanguageContext) {
+        // Visitor is very simple and has no state (instance properties)
+        // so it is safe to use the same visitor.. but be careful doing this.
+        val statementVisitor = StatementVisitor()
+
         // To execute our program, we just loop through the statements,
         // executing each one (by visiting them). Super simple.
         ctx.statement().forEach {
-            it.accept(StatementVisitor())
+            it.accept(statementVisitor)
         }
     }
 }
