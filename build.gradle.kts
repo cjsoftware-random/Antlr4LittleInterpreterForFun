@@ -1,3 +1,10 @@
+/*
+ * Antlr4LittleInterpreterForFun  Copyright (C) 2022  Chris James
+ * This program comes with ABSOLUTELY NO WARRANTY;
+ * This is free software, and you are welcome to redistribute it
+ * under certain conditions; See LICENSE file accompanying this project.
+ */
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /*
@@ -34,7 +41,7 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
 
 

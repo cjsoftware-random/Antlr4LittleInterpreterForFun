@@ -1,3 +1,8 @@
+/*
+Antlr4LittleInterpreterForFun  Copyright (C) 2022  Chris James&#10;This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it&#10;under certain conditions; See LICENSE file accompanying this project.
+*/
+
 lexer grammar LittleLexer;
 
 // Comments and whitespace
