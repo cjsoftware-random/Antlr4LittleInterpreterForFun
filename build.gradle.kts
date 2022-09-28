@@ -1,5 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+/*
+ * Note that there are convenience run configurations included in this project
+ */
+
 buildscript {
     repositories {
         mavenCentral()
@@ -9,13 +13,11 @@ buildscript {
 plugins {
     kotlin("jvm") version "1.7.10"
     id("io.github.cjsoftware-plugin.Antlr4SyntaxRailroadDiagram") version "1.0.0043"
-    antlr
+    antlr // Remember to specify the Antlr version in dependencies or weird errors will happen :-)
     application
 }
 
-val groupName = "io.github.cjsoftware_random"
-
-group = groupName
+group = "io.github.cjsoftware_random"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -23,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    antlr("org.antlr:antlr4:4.11.1") // Important; specify version or it will assume a low-version default.
+    antlr("org.antlr:antlr4:4.11.1") // Important; specify version, or it will assume a low-version default.
     testImplementation(kotlin("test"))
 }
 
@@ -34,6 +36,7 @@ tasks.test {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
+
 
 antlr4SyntaxRailroadDiagram {
     inputGrammarName = "LittleParser"
@@ -49,16 +52,19 @@ tasks.generateGrammarSource {
         arrayOf(
             "-visitor",
             "-no-listener",
-            "-package", "$groupName.parser",
+            "-package", "${project.group}.parser",
         )
     )
 }
 
 tasks.compileKotlin {
-    dependsOn(tasks["generateGrammarSource"])
+    dependsOn(
+        tasks["generateGrammarSource"], // Note that unfortunately the Antlr task is not too great at detecting grammar changes. You may need to clean/assemble.
+        tasks["antlr4SyntaxRailroadDiagram"] // Including the syntax diagram for fun.
+    )
 }
 
 application {
-    mainClass.set("$groupName.Main")
+    mainClass.set("${project.group}.Main")
 }
 
